@@ -66,7 +66,7 @@ describe("--local-host localhost", () => {
   it("override Host header with local-host", async (done) => {
     const tunnel = await localtunnel({
       port: fakePort,
-      local_host: "localhost",
+      local_alias: "localhost",
     });
     assert.ok(new RegExp("^https://.*localtunnel.me$").test(tunnel.url));
 
@@ -101,7 +101,7 @@ describe("--local-host 127.0.0.1", () => {
   it("override Host header with local-host", async (done) => {
     const tunnel = await localtunnel({
       port: fakePort,
-      local_host: "127.0.0.1",
+      local_alias: "127.0.0.1",
     });
     assert.ok(new RegExp("^https://.*localtunnel.me$").test(tunnel.url));
 
@@ -136,7 +136,7 @@ describe("--local-host 127.0.0.1", () => {
   it("send chunked request", async (done) => {
     const tunnel = await localtunnel({
       port: fakePort,
-      local_host: "127.0.0.1",
+      local_alias: "127.0.0.1",
     });
     assert.ok(new RegExp("^https://.*localtunnel.me$").test(tunnel.url));
 

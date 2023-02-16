@@ -76,9 +76,9 @@ const localtunnel = require("localtunnel");
 #### options
 
 - `port` (number) [required] The local port number to expose through localtunnel.
-- `subdomain` (string) Request a specific subdomain on the proxy server. **Note** You may not actually receive this name depending on availability.
+- `subdomain` (string) [required] Request a specific subdomain on the proxy server. **Note** You may not actually receive this name depending on availability.
 - `host` (string) URL for the upstream proxy server. Defaults to `https://localtunnel.me`.
-- `local_host` (string) Proxy to this hostname instead of `localhost`. This will also cause the `Host` header to be re-written to this value in proxied requests.
+- `local_alias` (string) Proxy to this hostname instead of `localhost`. Usually can be either `0.0.0.0` or `127.0.0.1`. This will also cause the `Host` header to be re-written to this value in proxied requests.
 - `local_https` (boolean) Enable tunneling to local HTTPS server.
 - `local_cert` (string) Path to certificate PEM file for local HTTPS server.
 - `local_key` (string) Path to certificate key file for local HTTPS server.

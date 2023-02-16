@@ -7,26 +7,22 @@ const yargs = require("yargs");
 const localtunnel = require("../localtunnel");
 const { version } = require("../package");
 
+require("dotenv").config();
+
 const { argv } = yargs
-  .usage("Usage: lt --port [num] <options>")
+  .usage("Usage: lt [port] [subdomain] <options>")
   .env(true)
-  .option("p", {
-    alias: "port",
-    describe: "Internal HTTP server port",
-  })
+  .positional("port", { describe: "Internal HTTP server port" })
+  .positional("subdomain", { describe: "Request this subdomain" })
   .option("h", {
     alias: "host",
     describe: "Upstream server providing forwarding",
-    default: "https://localtunnel.me",
+    default: process.env.DEFAULT_HOST,
   })
-  .option("s", {
-    alias: "subdomain",
-    describe: "Request this subdomain",
-  })
-  .option("l", {
-    alias: "local-host",
-    describe:
-      "Tunnel traffic to this host instead of localhost, override Host header to this host",
+  .option("a", {
+    alias: "local-alias",
+    describe: "Alias of localhost, can be 0.0.0.0 or 127.0.0.1",
+    default: "localhost",
   })
   .option("local-https", {
     describe: "Tunnel traffic to a local HTTPS server",
@@ -51,14 +47,19 @@ const { argv } = yargs
   .option("print-requests", {
     describe: "Print basic request info",
   })
-  .require("port")
   .boolean("local-https")
   .boolean("allow-invalid-cert")
   .boolean("print-requests")
   .help("help", "Show this help and exit")
   .version(version);
 
-if (typeof argv.port !== "number") {
+if (argv._.length !== 2) {
+  yargs.showHelp();
+  console.error("\nInvalid arguments: `port` and `subdomain` must be supplied");
+  process.exit(1);
+}
+
+if (typeof argv._[0] !== "number") {
   yargs.showHelp();
   console.error("\nInvalid argument: `port` must be a number");
   process.exit(1);
@@ -66,10 +67,10 @@ if (typeof argv.port !== "number") {
 
 (async () => {
   const tunnel = await localtunnel({
-    port: argv.port,
+    port: argv._[0],
+    subdomain: argv._[1],
     host: argv.host,
-    subdomain: argv.subdomain,
-    local_host: argv.localHost,
+    local_alias: argv.localAlias,
     local_https: argv.localHttps,
     local_cert: argv.localCert,
     local_key: argv.localKey,
