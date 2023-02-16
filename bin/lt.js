@@ -7,6 +7,8 @@ const yargs = require("yargs");
 const localtunnel = require("../localtunnel");
 const { version } = require("../package");
 
+require('dotenv').config();
+
 const { argv } = yargs
   .usage("Usage: lt --port [num] <options>")
   .env(true)
@@ -17,7 +19,7 @@ const { argv } = yargs
   .option("h", {
     alias: "host",
     describe: "Upstream server providing forwarding",
-    default: "https://localtunnel.me",
+    default: process.env.DEFAULT_HOST,
   })
   .option("s", {
     alias: "subdomain",
