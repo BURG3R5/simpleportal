@@ -19,10 +19,10 @@ const { argv } = yargs
     describe: "Upstream server providing forwarding",
     default: process.env.DEFAULT_HOST,
   })
-  .option("l", {
-    alias: "local-host",
-    describe:
-      "Tunnel traffic to this host instead of localhost, override Host header to this host",
+  .option("a", {
+    alias: "local-alias",
+    describe: "Alias of localhost, can be 0.0.0.0 or 127.0.0.1",
+    default: "localhost",
   })
   .option("local-https", {
     describe: "Tunnel traffic to a local HTTPS server",
@@ -70,7 +70,7 @@ if (typeof argv._[0] !== "number") {
     port: argv._[0],
     subdomain: argv._[1],
     host: argv.host,
-    local_host: argv.localHost,
+    local_alias: argv.localAlias,
     local_https: argv.localHttps,
     local_cert: argv.localCert,
     local_key: argv.localKey,
