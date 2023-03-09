@@ -18,7 +18,7 @@
     "lt": "bin/lt.js"
   },
   "scripts": {
-    "test": "mocha --reporter list --timeout 60000 -- *.spec.js"
+    "test": "mocha --reporter list --timeout 60000 -- localtunnel.test.js"
   },
   "dependencies": {
     "axios": "0.21.4",
