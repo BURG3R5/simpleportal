@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 
-const crypto = require("crypto");
-const http = require("http");
-const https = require("https");
-const url = require("url");
-const assert = require("assert");
+import crypto from "crypto";
+import http from "http";
+import https from "https";
+import url from "url";
+import assert from "assert";
 
-const localtunnel = require("./localtunnel");
+import localtunnel from "./localtunnel";
 
 let fakePort;
 

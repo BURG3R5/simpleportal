@@ -1,42 +1,50 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --experimental-modules
 /* eslint-disable no-console */
 
-const openurl = require("openurl");
-const yargs = require("yargs");
+import localtunnel from "../localtunnel.js";
+import yargs from "yargs";
+import openurl from "openurl";
+import { config } from "dotenv";
+import { createRequire } from "node:module";
 
-const localtunnel = require("../localtunnel");
-const { version } = require("../package");
+const version = createRequire(import.meta.url)("../package.json").version;
 
-require("dotenv").config();
+config();
 
-const { argv } = yargs
-  .usage("Usage: lt [port] [subdomain] <options>")
+const command = yargs(process.argv.slice(2))
+  .usage("Usage: tc <port> <subdomain> [...]")
   .env(true)
-  .positional("port", { describe: "Internal HTTP server port" })
-  .positional("subdomain", { describe: "Request this subdomain" })
-  .option("h", {
+  .positional("port", {
+    describe: "Internal HTTP server port",
+    type: "number",
+  })
+  .positional("subdomain", {
+    describe: "Request this subdomain",
+    type: "string",
+  })
+  .options("h", {
     alias: "host",
     describe: "Upstream server providing forwarding",
     default: process.env.DEFAULT_HOST,
   })
-  .option("a", {
+  .options("a", {
     alias: "local-alias",
     describe: "Alias of localhost, can be 0.0.0.0 or 127.0.0.1",
     default: "localhost",
   })
-  .option("local-https", {
+  .options("local-https", {
     describe: "Tunnel traffic to a local HTTPS server",
   })
-  .option("local-cert", {
+  .options("local-cert", {
     describe: "Path to certificate PEM file for local HTTPS server",
   })
-  .option("local-key", {
+  .options("local-key", {
     describe: "Path to certificate key file for local HTTPS server",
   })
-  .option("local-ca", {
+  .options("local-ca", {
     describe: "Path to certificate authority file for self-signed certificates",
   })
-  .option("allow-invalid-cert", {
+  .options("allow-invalid-cert", {
     describe:
       "Disable certificate checks for your local HTTPS server (ignore cert/key/ca options)",
   })
@@ -44,17 +52,20 @@ const { argv } = yargs
     alias: "open",
     describe: "Opens the tunnel URL in your browser",
   })
-  .option("print-requests", {
+  .options("print-requests", {
     describe: "Print basic request info",
   })
   .boolean("local-https")
   .boolean("allow-invalid-cert")
   .boolean("print-requests")
-  .help("help", "Show this help and exit")
+  .help()
+  .config()
   .version(version);
 
+const argv = command.argv;
+
 if (argv._.length !== 2) {
-  yargs.showHelp();
+  command.showHelp();
   console.error("\nInvalid arguments: `port` and `subdomain` must be supplied");
   process.exit(1);
 }
