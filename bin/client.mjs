@@ -12,7 +12,7 @@ const version = createRequire(import.meta.url)("../package.json").version;
 config();
 
 const command = yargs(process.argv.slice(2))
-  .usage("Usage: sp <port> <subdomain> [...]")
+  .usage("Usage: quip <port> <subdomain> [...]")
   .env(true)
   .positional("port", {
     describe: "Internal HTTP server port",

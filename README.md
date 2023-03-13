@@ -26,19 +26,19 @@ npm add quickportal
 
 ## cli
 
-When quickportal is installed globally, just use the `sp` command to start the tunnel.
+When quickportal is installed globally, just use the `quip` command to start the tunnel.
 
 ```
-sp --port 8000
+quip --port 8000
 ```
 
 Thats it! It will connect to the tunnel server, setup the tunnel, and tell you what url to use for your testing. This url will remain active for the duration of your session; so feel free to share it with others for happy fun time!
 
-You can restart your local server all you want, `sp` is smart enough to detect this and reconnect once it is back.
+You can restart your local server all you want, `quip` is smart enough to detect this and reconnect once it is back.
 
 ### arguments
 
-Below are some common arguments. See `sp --help` for additional arguments
+Below are some common arguments. See `quip --help` for additional arguments
 
 - `--subdomain` request a named subdomain on the quicknexus (default is random characters)
 - `--local-host` proxy to a hostname other than localhost
@@ -46,7 +46,7 @@ Below are some common arguments. See `sp --help` for additional arguments
 You may also specify arguments via env variables. E.x.
 
 ```
-PORT=3000 sp
+PORT=3000 quip
 ```
 
 ## API
