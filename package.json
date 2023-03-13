@@ -1,7 +1,7 @@
 {
   "name": "quickportal",
   "description": "expose your ports to the world",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Aditya Rajput <adiraj20072002@gmail.com>",
   "license": "MIT",
   "contributors": [
