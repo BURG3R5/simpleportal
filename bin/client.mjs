@@ -1,7 +1,7 @@
 #!/usr/bin/env node --experimental-modules
 /* eslint-disable no-console */
 
-import localtunnel from "../localtunnel.js";
+import quickportal from "../client.js";
 import yargs from "yargs";
 import openurl from "openurl";
 import { config } from "dotenv";
@@ -12,7 +12,7 @@ const version = createRequire(import.meta.url)("../package.json").version;
 config();
 
 const command = yargs(process.argv.slice(2))
-  .usage("Usage: tc <port> <subdomain> [...]")
+  .usage("Usage: sp <port> <subdomain> [...]")
   .env(true)
   .positional("port", {
     describe: "Internal HTTP server port",
@@ -77,7 +77,7 @@ if (typeof argv._[0] !== "number") {
 }
 
 (async () => {
-  const tunnel = await localtunnel({
+  const tunnel = await quickportal({
     port: argv._[0],
     subdomain: argv._[1],
     host: argv.host,

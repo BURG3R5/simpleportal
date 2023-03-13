@@ -1,6 +1,6 @@
-import Tunnel from "./lib/Tunnel";
+import Tunnel from "./lib/Tunnel.js";
 
-export default function localtunnel(arg1, arg2, arg3) {
+export default function client(arg1, arg2, arg3) {
   const options = typeof arg1 === "object" ? arg1 : { ...arg2, port: arg1 };
   const callback = typeof arg1 === "object" ? arg2 : arg3;
   const client = new Tunnel(options);
