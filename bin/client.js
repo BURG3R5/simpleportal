@@ -1,5 +1,4 @@
-#!/usr/bin/env node --experimental-modules
-/* eslint-disable no-console */
+#!/usr/bin/env node
 
 import quickportal from "../client.js";
 import yargs from "yargs";
